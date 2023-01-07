@@ -31,23 +31,22 @@ void SaveSystem::SavePinState(int pin, bool isOn)
     }
     else
     {
-        Serial.println("removing");
         SD.remove(fileName);
     }
 }
 
 void SaveSystem::Initialize()
 {
-    Serial.print("Initializing SD card...");
+    Serial.println("Initializing SD card...");
     pinMode(10, OUTPUT);
     digitalWrite(10, HIGH);
 
     if (!SD.begin(4))
     {
-        //Raise some flag and inform MQTT broker
+        //TODO Raise some flag and inform MQTT broker
         Serial.println("initialization failed!");
         return;
     }
     isInitialized = true;
-    Serial.print("SD Initialization succeed");
+    Serial.println("SD Initialization succeed");
 }

@@ -1,12 +1,12 @@
 
 #include "MQTTSystem.h"
 
-byte mac[] = {0xDE, 0x3D, 0x0E, 0xEF, 0xFE, 0xED};
-const char *server = "test.mosquitto.org";
+byte mac[] = {0xDE, 0x4A, 0x0E, 0xAC, 0xFE, 0xED};
+const char *server = "192.168.0.241";
 const int port = 1883;
-const char *clientID = "Light_System_1";
-const char *username = "";
-const char *password = "";
+const char *clientID = "Lighting System 1";
+const char *username = "MQTT_User";
+const char *password = "mqtt";
 
 MQTTSystem::MQTTSystem()
 {
@@ -16,35 +16,47 @@ MQTTSystem::~MQTTSystem()
 {
 }
 
-void MQTTSystem::SubscribeReceive(char *topic, byte *payload, unsigned int length)
+void MQTTSystem::SetValue(String topic, String value)
 {
+    if (isMqttInitialized)
+    {
+        mqttClient.publish(topic, value, true, 1);
+    }
 }
 
 void MQTTSystem::InitializeEthernet()
 {
-    Serial.println("Initializing Ethernet...");
-    ethClient = new EthernetClient;
-    mqttClient = new PubSubClient(*ethClient);
-
-    Ethernet.begin(mac);
     initializationTime = millis();
-    Serial.println("Finished Initializing Ethernet.");
+    Serial.println("Initializing Ethernet...");
+    if (Ethernet.linkStatus() == 1)
+    {
+        if (Ethernet.begin(mac) == 0)
+        {
+            Serial.println("Ethernet initialization failed. DHCP failure");
+            return;
+        }
+        Serial.println("Finished Initializing Ethernet.");
+        InitializeMQTT();
+        isEthernetInitialized = true;
+        return;
+    }
+    Serial.println("Ethernet initialization failed. no connection");
 }
 
 void MQTTSystem::InitializeMQTT()
 {
     Serial.println("Initializing MQTT...");
 
-    mqttClient->setServer(server, port);
+    mqttClient.begin(server, ethClient);
+    mqttClient.setWill("LightSystem/Connected", "0", true, 1);
 
-    if (mqttClient->connect(clientID, username, password))
+    if (mqttClient.connect(clientID, username, password))
     {
-        mqttClient->publish("lightController/living_room/0", "1");
-        Serial.println("Connection has been established, well done");
+        isMqttInitialized = true;
+        mqttClient.subscribe("LightSystem/#");
+        mqttClient.publish("LightSystem/Connected", "1", true, 1);
 
-        isMqttInitialized = true;
-        mqttClient->setCallback(SubscribeReceive);
-        isMqttInitialized = true;
+        Serial.println("Connection has been established, well done");
         return;
     }
 
@@ -54,13 +66,24 @@ void MQTTSystem::InitializeMQTT()
 
 void MQTTSystem::Update()
 {
-    if (!isMqttInitialized && TimePast(initializationTime, 3000))
+    if (isMqttInitialized)
     {
-        InitializeMQTT();
+        mqttClient.loop();
     }
-}
-
-bool MQTTSystem::TimePast(unsigned long previousTime, unsigned long interval)
-{
-    return ((unsigned long)(millis() - previousTime)) >= interval;
+    if (TimePast(initializationTime, 3000))
+    {
+        if (isMqttInitialized && !mqttClient.connected())
+        {
+            isMqttInitialized = false;
+            isEthernetInitialized = false;
+        }
+        if (!isEthernetInitialized)
+        {
+            InitializeEthernet();
+        }
+        else if (!isMqttInitialized)
+        {
+            InitializeMQTT();
+        }
+    }
 }

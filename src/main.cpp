@@ -2,28 +2,30 @@
 #include <avr/wdt.h>
 #include <SaveSystem/SaveSystem.h>
 #include <MQTTSystem/MQTTSystem.h>
+#include "LightsSystem/Switch/Switch.h"
+#include <LightsSystem/LightsSystem.h>
+#include "LightsSystem/Button/Button.h"
 
 SaveSystem saveSystem;
 MQTTSystem mqttSystem;
+LightsSystem lightsSystem(&saveSystem, &mqttSystem);
 
 void setup()
 {
   Serial.begin(9600);
 
-  while (!Serial)
-  {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
+  Serial.println("Reset!");
   saveSystem.Initialize();
+  lightsSystem.Initialize();
   mqttSystem.InitializeEthernet();
 
-  wdt_enable(WDTO_4S);
+  wdt_enable(WDTO_8S);
 }
 
 void loop()
 {
   wdt_reset();
 
+  lightsSystem.Update();
   mqttSystem.Update();
-  // put your main code here, to run repeatedly:
 }

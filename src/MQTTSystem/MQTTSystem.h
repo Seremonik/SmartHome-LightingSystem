@@ -1,10 +1,10 @@
 #ifndef MQTTSystem_H
 #define MQTTSystem_H
 
-#include "MQTTSystem.h"
+#include <MQTT.h>
 #include <Arduino.h>
 #include <Ethernet.h>
-#include <PubSubClient.h>
+#include <Utils/util.h>
 
 extern byte mac[];
 extern const char *server;
@@ -17,19 +17,20 @@ class MQTTSystem
 {
 private:
     bool isMqttInitialized = false;
+    bool isEthernetInitialized = false;
     unsigned long initializationTime = 0;
 
-    EthernetClient *ethClient;
-    PubSubClient *mqttClient;
-    static void SubscribeReceive(char *topic, byte *payload, unsigned int length);
+    EthernetClient ethClient;
+    static void SubscribeReceive(String &topic, String &payload);
     void InitializeMQTT();
-    bool TimePast(unsigned long previousTime, unsigned long interval);
 
 public:
+    MQTTClient mqttClient;
     MQTTSystem();
     ~MQTTSystem();
     void InitializeEthernet();
     void Update();
+    void SetValue(String topic, String value);
 };
 
 #endif
