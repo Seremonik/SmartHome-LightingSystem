@@ -3,10 +3,12 @@
 
 //Button pins order: {UP,DOWN},  OutputPins order:{UP,DOWN}
 ShutterSwitch::ShutterSwitch(int *buttonPins,
-                             int *outputPins,
+                             int *outputPins, 
+                             unsigned int autoCloseDurationMiliseconds,
                              String mqttTopic) : Switch(buttonPins, 2, outputPins, 2)
 {
     this->mqttTopic = mqttTopic;
+    this->autoCloseDurationMiliseconds = autoCloseDurationMiliseconds;
 }
 
 void ShutterSwitch::Initialize(SaveSystem *saveSystem, MQTTSystem *mqttSystem)
@@ -58,7 +60,7 @@ void ShutterSwitch::Update()
     //if was going automatic for X second then stop
     if (isOnAuto)
     {
-        if (isButtonUpPressed || isButtonDownPressed || TimePast(automaticHoldTimestamp, ShutterAutoHoldTimeMiliseconds))
+        if (isButtonUpPressed || isButtonDownPressed || TimePast(automaticHoldTimestamp, autoCloseDurationMiliseconds))
         {
             Stop();
         }

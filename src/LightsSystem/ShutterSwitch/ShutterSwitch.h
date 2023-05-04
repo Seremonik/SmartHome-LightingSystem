@@ -11,11 +11,12 @@ private:
     bool isButtonUpPressed = false;
     bool isButtonDownPressed = false;
     bool isOnAuto = false;
+    unsigned int autoCloseDurationMiliseconds;
     unsigned long clickTimestamp;
     unsigned long automaticHoldTimestamp;
 
 public:
-    ShutterSwitch(int *buttonPins, int *outputPins, String mqttTopic);
+    ShutterSwitch(int *buttonPins, int *outputPins, unsigned int autoCloseDurationMiliseconds, String mqttTopic);
     void Update();
     void Initialize(SaveSystem *saveSystem, MQTTSystem *mqttSystem);
     void ReceivedMessege(String &topic, String &payload);

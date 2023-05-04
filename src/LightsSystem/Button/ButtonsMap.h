@@ -1,6 +1,6 @@
 #ifndef ButtonsMap_H
 #define ButtonsMap_H
-#define Lights
+//#define Lights
 #define Shutters
 
 String lightingTopic = "Lights/"; //nie dzialajace piny button: A0, 0, 1
@@ -39,13 +39,13 @@ Switch *LightSwitches[] =
         new LightSwitch((int[]){41}, 1, (int[]){16}, 1, lightingTopic + "Lazienka_Pietro_Lustra")
     #endif
     #ifdef Shutters
-        new ShutterSwitch((int[]){A0, A3}, (int[]){47, 46}, shuttersTopic + "Salon_Zaluzja"),
-        new ShutterSwitch((int[]){A4, A5}, (int[]){45, 44}, shuttersTopic + "Jadalnia_Zaluzja"),
-        new ShutterSwitch((int[]){A6, A7}, (int[]){41, 40}, shuttersTopic + "Jadalnia_Roleta"),
-        new ShutterSwitch((int[]){A8, A9}, (int[]){39, 37}, shuttersTopic + "Kuchnia_Roleta_Wsch"),
-        new ShutterSwitch((int[]){A10, A11}, (int[]){35, 34}, shuttersTopic + "Kuchnia_Roleta_Ganek"),
-        new ShutterSwitch((int[]){A12, A13}, (int[]){33, 32}, shuttersTopic + "Pokoj_1_Zaluzja"),
-        new ShutterSwitch((int[]){A14, A15}, (int[]){31, 29}, shuttersTopic + "Pokoj_2_Zaluzja")
+        new ShutterSwitch((int[]){A0, A3}, (int[]){47, 46}, 60000, shuttersTopic + "Salon_Zaluzja"),
+        new ShutterSwitch((int[]){A4, A5}, (int[]){45, 44}, 60000, shuttersTopic + "Jadalnia_Zaluzja"),
+        new ShutterSwitch((int[]){A6, A7}, (int[]){41, 40}, 20000, shuttersTopic + "Jadalnia_Roleta"),
+        new ShutterSwitch((int[]){A8, A9}, (int[]){39, 37}, 20000, shuttersTopic + "Kuchnia_Roleta_Wsch"),
+        new ShutterSwitch((int[]){A10, A11}, (int[]){35, 34}, 20000, shuttersTopic + "Kuchnia_Roleta_Ganek"),
+        new ShutterSwitch((int[]){A12, A13}, (int[]){33, 32}, 40000, shuttersTopic + "Pokoj_1_Zaluzja"),
+        new ShutterSwitch((int[]){A14, A15}, (int[]){31, 29}, 40000, shuttersTopic + "Pokoj_2_Zaluzja")
     #endif
 };
 
