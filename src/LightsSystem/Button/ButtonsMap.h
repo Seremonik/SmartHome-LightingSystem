@@ -44,8 +44,8 @@ Switch *LightSwitches[] =
         new ShutterSwitch((int[]){A6, A7}, (int[]){41, 40}, 230000, shuttersTopic + "Jadalnia_Roleta"),
         new ShutterSwitch((int[]){A8, A9}, (int[]){39, 37}, 230000, shuttersTopic + "Kuchnia_Roleta_Wsch"),
         new ShutterSwitch((int[]){A10, A11}, (int[]){35, 34}, 230000, shuttersTopic + "Kuchnia_Roleta_Ganek"),
-        new ShutterSwitch((int[]){A12, A13}, (int[]){33, 32}, 1200000, shuttersTopic + "Pokoj_1_Zaluzja"),
-        new ShutterSwitch((int[]){A14, A15}, (int[]){31, 29}, 1200000, shuttersTopic + "Pokoj_2_Zaluzja")
+        new ShutterSwitch((int[]){A12, A13}, (int[]){33, 32}, 3000000, shuttersTopic + "Pokoj_1_Zaluzja"),
+        new ShutterSwitch((int[]){A14, A15}, (int[]){31, 29}, 3000000, shuttersTopic + "Pokoj_2_Zaluzja")
     #endif
 };
 
