@@ -13,20 +13,20 @@ Switch *LightSwitches[] =
 {
     #ifdef Lights
         new LightSwitch((int[]){40}, 1, (int[]){15}, 1, lightingTopic + "Ganek"),
-        new LightSwitch((int[]){A1}, 1, (int[]){39}, 1, lightingTopic + "Wiatrolap"),
-        new LightSwitch((int[]){A2}, 1, (int[]){38}, 1, lightingTopic + "Wiatrolap_Ambient"),
+        new LightSwitch((int[]){A1, 0, 1}, 3, (int[]){39}, 1, lightingTopic + "Wiatrolap"),
+        new LightSwitch((int[]){A2, 2, 3}, 3, (int[]){38}, 1, lightingTopic + "Wiatrolap_Ambient"),
         new LightSwitch((int[]){A3}, 1, (int[]){37}, 1, lightingTopic + "Maszynownia"),
         new LightSwitch((int[]){A4}, 1, (int[]){36}, 1, lightingTopic + "Lazienka_Parter"),
-        new LightSwitch((int[]){A5}, 1, (int[]){35}, 1, lightingTopic + "Korytarz_Parter"),
+        new LightSwitch((int[]){A5, 5}, 2, (int[]){35, 26}, 2, lightingTopic + "Korytarz_Parter"),
         new LightSwitch((int[]){A6}, 1, (int[]){34}, 1, lightingTopic + "Kuchnia"),
         new LightSwitch((int[]){A7}, 1, (int[]){28}, 1, lightingTopic + "Kuchnia_Blaty"),
         new LightSwitch((int[]){A8}, 1, (int[]){32}, 1, lightingTopic + "Kuchnia_Barek"),
         new LightSwitch((int[]){A9}, 1, (int[]){31}, 1, lightingTopic + "Kuchnia_Ambient"),
         new LightSwitch((int[]){A10}, 1, (int[]){30}, 1, lightingTopic + "Jadalnia_1"),
         new LightSwitch((int[]){A11}, 1, (int[]){29}, 1, lightingTopic + "Jadalnia_2"),
-        new LightSwitch((int[]){A12}, 1, (int[]){33}, 1, lightingTopic + "Salon_1"),
+        //new LightSwitch((int[]){A12}, 1, (int[]){33}, 1, lightingTopic + "Salon_1"),
         new LightSwitch((int[]){A13}, 1, (int[]){27}, 1, lightingTopic + "Salon_2"),
-        new LightSwitch((int[]){A14}, 1, (int[]){26}, 1, lightingTopic + "Salon_Ambient"),
+        //new LightSwitch((int[]){A14}, 1, (int[]){26}, 1, lightingTopic + "Salon_Ambient"),
         new LightSwitch((int[]){A15}, 1, (int[]){25}, 1, lightingTopic + "Schody"),
         new LightSwitch((int[]){49}, 1, (int[]){24}, 1, lightingTopic + "Korytarz_Pietro"),
         new LightSwitch((int[]){48}, 1, (int[]){23}, 1, lightingTopic + "Pokoj_1"),
@@ -52,7 +52,7 @@ Switch *LightSwitches[] =
 
 //Size of the above array
 #ifdef Lights
-    const int LightSwitchesCount = 26;
+    const int LightSwitchesCount = 24;
 #endif
 #ifdef Shutters
     const int LightSwitchesCount = 7;
