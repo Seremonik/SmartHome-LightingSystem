@@ -3,6 +3,7 @@
 
 #include "LightSwitch/LightSwitch.h"
 #include "ShutterSwitch/ShutterSwitch.h"
+#include "MomentarySwitch/MomentarySwitch.h"
 #include "Arduino.h"
 #include "SaveSystem/SaveSystem.h"
 #include "MQTTSystem/MQTTSystem.h"

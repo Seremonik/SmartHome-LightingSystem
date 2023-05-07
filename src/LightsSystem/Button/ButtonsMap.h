@@ -1,7 +1,7 @@
 #ifndef ButtonsMap_H
 #define ButtonsMap_H
-//#define Lights
-#define Shutters
+#define Lights
+//#define Shutters
 
 String lightingTopic = "Lights/"; //nie dzialajace piny button: A0, 0, 1
 String shuttersTopic = "Shutters/"; //nie dzialajace piny button: A1, A2, 16, 17, 18, 20, 21, 30, 36, 38, 42, 43
@@ -36,7 +36,8 @@ Switch *LightSwitches[] =
         new LightSwitch((int[]){44}, 1, (int[]){19}, 1, lightingTopic + "Pralnia"),
         new LightSwitch((int[]){43}, 1, (int[]){18}, 1, lightingTopic + "Lazienka_Pietro"),
         new LightSwitch((int[]){42}, 1, (int[]){17}, 1, lightingTopic + "Lazienka_Pietro_Ambient"),
-        new LightSwitch((int[]){41}, 1, (int[]){16}, 1, lightingTopic + "Lazienka_Pietro_Lustra")
+        new LightSwitch((int[]){41}, 1, (int[]){16}, 1, lightingTopic + "Lazienka_Pietro_Lustra"),
+        new MomentarySwitch((int[]){50}, 1, (int[]){14}, 1, lightingTopic + "Dzwonek")
     #endif
     #ifdef Shutters
         new ShutterSwitch((int[]){A0, A3}, (int[]){47, 46}, 1700000, shuttersTopic + "Salon_Zaluzja"),
@@ -51,7 +52,7 @@ Switch *LightSwitches[] =
 
 //Size of the above array
 #ifdef Lights
-    const int LightSwitchesCount = 25;
+    const int LightSwitchesCount = 26;
 #endif
 #ifdef Shutters
     const int LightSwitchesCount = 7;
