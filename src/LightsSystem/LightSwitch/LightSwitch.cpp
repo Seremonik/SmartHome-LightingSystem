@@ -46,7 +46,6 @@ void LightSwitch::ReceivedMessege(String &topic, String &payload)
 {
     if (topic.compareTo(setMqttTopic) == 0)
     {
-        Serial.println("incoming from MQTT!: " + topic + " - " + payload);
         if (payload.compareTo("ON") == 0)
         {
             TurnOnLight();
