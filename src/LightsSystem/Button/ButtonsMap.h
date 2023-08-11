@@ -3,7 +3,7 @@
 #define Lights
 //#define Shutters
 
-String lightingTopic = "Lights/"; //nie dzialajace piny button: A0, 0, 1, 33, 50
+String lightingTopic = "Lights/"; //nie dzialajace piny button: A0, 0, 1, 33, 50, 27
 String shuttersTopic = "Shutters/"; //nie dzialajace piny button: A1, A2, 16, 17, 18, 20, 21, 30, 36, 38, 42, 43
 
 //taken pins (DONT USE!):
@@ -25,7 +25,7 @@ Switch *LightSwitches[] =
         new LightSwitch((int[]){A10}, 1, (int[]){30}, 1, lightingTopic + "Jadalnia_1"),
         new LightSwitch((int[]){A11}, 1, (int[]){29}, 1, lightingTopic + "Jadalnia_2"),
         //new LightSwitch((int[]){A12}, 1, (int[]){33}, 1, lightingTopic + "Salon_1"),
-        new LightSwitch((int[]){A13}, 1, (int[]){27}, 1, lightingTopic + "Salon_2"),
+        new LightSwitch((int[]){A13}, 1, (int[]){33}, 1, lightingTopic + "Salon_2"),
         //new LightSwitch((int[]){A14}, 1, (int[]){26}, 1, lightingTopic + "Salon_Ambient"),
         new LightSwitch((int[]){A15}, 1, (int[]){25}, 1, lightingTopic + "Schody"),
         new LightSwitch((int[]){49}, 1, (int[]){24}, 1, lightingTopic + "Korytarz_Pietro"),
