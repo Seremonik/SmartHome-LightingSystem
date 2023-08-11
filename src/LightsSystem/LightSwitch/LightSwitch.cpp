@@ -7,6 +7,7 @@ LightSwitch::LightSwitch(int *buttonPins,
                          String mqttTopic) : Switch(buttonPins, buttonsCount, outputPin, outputCount)
 {
     this->mqttTopic = mqttTopic;
+    this->setMqttTopic = mqttTopic+"/set";
 }
 
 LightSwitch::~LightSwitch()
@@ -38,18 +39,19 @@ void LightSwitch::Initialize(SaveSystem *saveSystem, MQTTSystem *mqttSystem)
     {
         digitalWrite(outputPins[i], !isOutputOn);
     }
+    mqttSystem->SetValue(mqttTopic, isOutputOn ? "ON" : "OFF");
 }
 
 void LightSwitch::ReceivedMessege(String &topic, String &payload)
 {
-    if (topic.compareTo(mqttTopic) == 0)
+    if (topic.compareTo(setMqttTopic) == 0)
     {
         Serial.println("incoming from MQTT!: " + topic + " - " + payload);
-        if (payload.compareTo("1") == 0)
+        if (payload.compareTo("ON") == 0)
         {
             TurnOnLight();
         }
-        else if (payload.compareTo("0") == 0)
+        else if (payload.compareTo("OFF") == 0)
         {
             TurnOffLight();
         }
@@ -81,5 +83,5 @@ void LightSwitch::SwitchLight()
     }
 
     saveSystem->SavePinState(outputPins[0], isOutputOn);
-    mqttSystem->SetValue(mqttTopic, isOutputOn ? "1" : "0");
+    mqttSystem->SetValue(mqttTopic, isOutputOn ? "ON" : "OFF");
 }

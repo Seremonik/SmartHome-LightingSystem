@@ -2,10 +2,10 @@
 #include "MQTTSystem.h"
 
 byte mac[] = {0xDE, 0x4A, 0x0E, 0xAC, 0xFE, 0xED};
-const char *server = "192.168.0.241";
+const char *server = "100.168.1.60";
 const int port = 1883;
-const char *clientID = "Lighting System 1";
-const char *username = "MQTT_User";
+const char *clientID = "Lighting System";
+const char *username = "mqttclient";
 const char *password = "mqtt";
 
 MQTTSystem::MQTTSystem()
@@ -48,13 +48,13 @@ void MQTTSystem::InitializeMQTT()
     Serial.println("Initializing MQTT...");
 
     mqttClient.begin(server, ethClient);
-    mqttClient.setWill("LightSystem/Connected", "0", true, 1);
+    mqttClient.setWill("LightSystem/Availablity", "offline", true, 1);
 
     if (mqttClient.connect(clientID, username, password))
     {
         isMqttInitialized = true;
         mqttClient.subscribe("LightSystem/#");
-        mqttClient.publish("LightSystem/Connected", "1", true, 1);
+        mqttClient.publish("LightSystem/Availablity", "online", true, 1);
 
         Serial.println("Connection has been established, well done");
         return;

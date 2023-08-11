@@ -11,6 +11,7 @@ private:
 
 public:
     String mqttTopic;
+    String setMqttTopic;
 
     bool previousRegisteredState = false;
     bool currentState = false; //
