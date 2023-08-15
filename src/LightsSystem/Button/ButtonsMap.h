@@ -13,7 +13,7 @@ Switch *LightSwitches[] =
 {
     #ifdef Lights
         new LightSwitch((int[]){40}, 1, (int[]){15}, 1, lightingTopic + "Ganek"),
-        new LightSwitch((int[]){A1, 0, 1}, 3, (int[]){39}, 1, lightingTopic + "Wiatrolap"),
+        new LightSwitch((int[]){A1, 6, 7}, 3, (int[]){39}, 1, lightingTopic + "Wiatrolap"),
         new LightSwitch((int[]){A2, 2, 3}, 3, (int[]){38}, 1, lightingTopic + "Wiatrolap_Ambient"),
         new LightSwitch((int[]){A3}, 1, (int[]){37}, 1, lightingTopic + "Maszynownia"),
         new LightSwitch((int[]){A4}, 1, (int[]){36}, 1, lightingTopic + "Lazienka_Parter"),
