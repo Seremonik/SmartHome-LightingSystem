@@ -1,7 +1,5 @@
 #ifndef ButtonsMap_H
 #define ButtonsMap_H
-#define Lights
-//#define Shutters
 
 String lightingTopic = "LightSystem/"; //nie dzialajace piny button: A0, 0, 1, 33, 50, 27
 String shuttersTopic = "Shutters/"; //nie dzialajace piny button: A1, A2, 16, 17, 18, 20, 21, 30, 36, 38, 42, 43

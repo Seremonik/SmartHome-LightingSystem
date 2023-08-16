@@ -1,10 +1,17 @@
 
 #include "MQTTSystem.h"
 
-byte mac[] = {0xDE, 0x4A, 0x0E, 0xAC, 0xFE, 0xED};
+#ifdef Lights 
+    byte Mac[] = {0xDE, 0x4A, 0x0E, 0xAC, 0xFE, 0xED};
+    const char *clientID = "Lighting System2";
+#endif
+#ifdef Shutters
+    byte Mac[] = {0xAA, 0x4A, 0x0E, 0xCC, 0xCC, 0xED};
+    const char *clientID = "Shutters System";
+#endif
+
 const char *server = "100.168.1.60";
 const int port = 1883;
-const char *clientID = "Lighting System";
 const char *username = "mqttclient";
 const char *password = "mqtt";
 
@@ -28,9 +35,9 @@ void MQTTSystem::InitializeEthernet()
 {
     initializationTime = millis();
     Serial.println("Initializing Ethernet...");
-    if (Ethernet.linkStatus() == 1)
+    if (Ethernet.linkStatus() == LinkON)
     {
-        if (Ethernet.begin(mac) == 0)
+        if (Ethernet.begin(Mac) == 0)
         {
             Serial.println("Ethernet initialization failed. DHCP failure");
             return;
@@ -72,10 +79,12 @@ void MQTTSystem::Update()
     }
     if (TimePast(initializationTime, 3000))
     {
+        isEthernetInitialized = Ethernet.linkStatus() == LinkON;
+
         if (isMqttInitialized && !mqttClient.connected())
         {
+            Serial.println(mqttClient.lastError());
             isMqttInitialized = false;
-            isEthernetInitialized = false;
         }
         if (!isEthernetInitialized)
         {
