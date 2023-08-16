@@ -3,7 +3,7 @@
 
 #ifdef Lights 
     byte Mac[] = {0xDE, 0x4A, 0x0E, 0xAC, 0xFE, 0xED};
-    const char *clientID = "Lighting System2";
+    const char *clientID = "Lighting System";
 #endif
 #ifdef Shutters
     byte Mac[] = {0xAA, 0x4A, 0x0E, 0xCC, 0xCC, 0xED};
@@ -43,6 +43,8 @@ void MQTTSystem::InitializeEthernet()
             return;
         }
         Serial.println("Finished Initializing Ethernet.");
+        Serial.print("Local IP:");
+        Serial.println(Ethernet.localIP());
         InitializeMQTT();
         isEthernetInitialized = true;
         return;
@@ -79,16 +81,16 @@ void MQTTSystem::Update()
     }
     if (TimePast(initializationTime, 3000))
     {
-        isEthernetInitialized = Ethernet.linkStatus() == LinkON;
+        isEthernetInitialized = isEthernetInitialized && Ethernet.linkStatus() == LinkON;
 
+        if (!isEthernetInitialized)
+        {
+            InitializeEthernet();
+        }
         if (isMqttInitialized && !mqttClient.connected())
         {
             Serial.println(mqttClient.lastError());
             isMqttInitialized = false;
-        }
-        if (!isEthernetInitialized)
-        {
-            InitializeEthernet();
         }
         else if (!isMqttInitialized)
         {
