@@ -8,6 +8,8 @@ class ShutterSwitch : public Switch
 
 private:
     String mqttTopic;
+    String stateTopic;
+    String commandTopic;
 
     bool isButtonUpPressed = false;
     bool isButtonDownPressed = false;

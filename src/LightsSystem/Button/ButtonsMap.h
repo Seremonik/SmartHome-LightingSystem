@@ -39,13 +39,13 @@ Switch *LightSwitches[] =
         new LightSwitch((int[]){41}, 1, (int[]){16}, 1, systemTopic + "Lazienka_Pietro_Lustra")
     #endif
     #ifdef Shutters
-        new ShutterSwitch((int[]){A3, A0}, (int[]){47, 46}, 90000000, systemTopic + "Salon_Zaluzja/set"),
-        new ShutterSwitch((int[]){A4, A5}, (int[]){45, 44}, 90000000, systemTopic + "Jadalnia_Zaluzja/set"),
-        new ShutterSwitch((int[]){A6, A7}, (int[]){41, 40}, 90000000, systemTopic + "Jadalnia_Roleta/set"),
-        new ShutterSwitch((int[]){A8, A9}, (int[]){39, 37}, 90000000, systemTopic + "Kuchnia_Roleta_Wsch/set"),
-        new ShutterSwitch((int[]){A10, A11}, (int[]){35, 34}, 90000000, systemTopic + "Kuchnia_Roleta_Ganek/set"),
-        new ShutterSwitch((int[]){A12, A13}, (int[]){33, 32}, 90000000, systemTopic + "Pokoj_1_Zaluzja/set"),
-        new ShutterSwitch((int[]){A15, A14}, (int[]){31, 29}, 90000000, systemTopic + "Pokoj_2_Zaluzja/set")
+        new ShutterSwitch((int[]){A3, A0}, (int[]){47, 46}, 90000000, systemTopic + "Salon_Zaluzja"),
+        new ShutterSwitch((int[]){A4, A5}, (int[]){45, 44}, 90000000, systemTopic + "Jadalnia_Zaluzja"),
+        new ShutterSwitch((int[]){A6, A7}, (int[]){41, 40}, 90000000, systemTopic + "Jadalnia_Roleta"),
+        new ShutterSwitch((int[]){A8, A9}, (int[]){39, 37}, 90000000, systemTopic + "Kuchnia_Roleta_Wsch"),
+        new ShutterSwitch((int[]){A10, A11}, (int[]){35, 34}, 90000000, systemTopic + "Kuchnia_Roleta_Ganek"),
+        new ShutterSwitch((int[]){A12, A13}, (int[]){33, 32}, 90000000, systemTopic + "Pokoj_1_Zaluzja"),
+        new ShutterSwitch((int[]){A15, A14}, (int[]){31, 29}, 90000000, systemTopic + "Pokoj_2_Zaluzja")
     #endif
 };
 
