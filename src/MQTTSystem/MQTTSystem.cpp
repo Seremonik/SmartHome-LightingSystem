@@ -43,6 +43,8 @@ void MQTTSystem::InitializeEthernet()
             return;
         }
         Serial.println("Finished Initializing Ethernet.");
+        Serial.print("Local IP:");
+        Serial.println(Ethernet.localIP());
         InitializeMQTT();
         isEthernetInitialized = true;
         return;
