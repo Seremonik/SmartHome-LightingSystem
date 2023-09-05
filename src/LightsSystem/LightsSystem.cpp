@@ -35,7 +35,6 @@ void LightsSystem::Initialize()
 
 void LightsSystem::MessageReceived(String &topic, String &payload)
 {
-    Serial.println("MQTT incoming: " + topic + " - " + payload);
     for (int i = 0; i < LightSwitchesCount; i++)
     {
         LightSwitches[i]->ReceivedMessege(topic, payload);

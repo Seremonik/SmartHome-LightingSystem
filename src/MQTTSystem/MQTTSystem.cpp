@@ -3,7 +3,7 @@
 
 #ifdef Lights 
     byte Mac[] = {0xDE, 0x4A, 0x0E, 0xAC, 0xFE, 0xED};
-    const char *clientID = "Lighting System2";
+    const char *clientID = "Lighting System";
 #endif
 #ifdef Shutters
     byte Mac[] = {0xAA, 0x4A, 0x0E, 0xCC, 0xCC, 0xED};
@@ -55,13 +55,13 @@ void MQTTSystem::InitializeMQTT()
     Serial.println("Initializing MQTT...");
 
     mqttClient.begin(server, ethClient);
-    mqttClient.setWill("LightSystem/Availablity", "offline", true, 1);
+    mqttClient.setWill((systemTopic + "Availablity").c_str(), "offline", true, 1);
 
     if (mqttClient.connect(clientID, username, password))
     {
         isMqttInitialized = true;
-        mqttClient.subscribe("LightSystem/#");
-        mqttClient.publish("LightSystem/Availablity", "online", true, 1);
+        mqttClient.subscribe((systemTopic + "#").c_str());
+        mqttClient.publish((systemTopic + "Availablity").c_str(), "online", true, 1);
 
         Serial.println("Connection has been established, well done");
         return;
@@ -79,16 +79,16 @@ void MQTTSystem::Update()
     }
     if (TimePast(initializationTime, 3000))
     {
-        isEthernetInitialized = Ethernet.linkStatus() == LinkON;
+        isEthernetInitialized = isEthernetInitialized && Ethernet.linkStatus() == LinkON;
 
-        if (isMqttInitialized && !mqttClient.connected())
-        {
-            Serial.println(mqttClient.lastError());
-            isMqttInitialized = false;
-        }
         if (!isEthernetInitialized)
         {
             InitializeEthernet();
+        }
+        else if (isMqttInitialized && !mqttClient.connected())
+        {
+            Serial.println(mqttClient.lastError());
+            isMqttInitialized = false;
         }
         else if (!isMqttInitialized)
         {

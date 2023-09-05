@@ -8,9 +8,6 @@ ShutterSwitch::ShutterSwitch(int *buttonPins,
                              String mqttTopic) : Switch(buttonPins, 2, outputPins, 2)
 {
     this->mqttTopic = mqttTopic;
-    this->stopMqttTopic = mqttTopic + "/stop";
-    this->upMqttTopic = mqttTopic + "/up";
-    this->downMqttTopic = mqttTopic + "/down";
     this->autoCloseDurationMiliseconds = autoCloseDurationMiliseconds;
 }
 
@@ -21,21 +18,26 @@ void ShutterSwitch::Initialize(SaveSystem *saveSystem, MQTTSystem *mqttSystem)
 
 void ShutterSwitch::ReceivedMessege(String &topic, String &payload)
 {
-    if (topic.compareTo(stopMqttTopic) == 0)
+    if (topic.compareTo(mqttTopic) != 0)
     {
-        Stop();
+        return;
     }
-    if (topic.compareTo(upMqttTopic) == 0)
+    
+    if(payload == "OPEN")
     {
         GoUp();
         isOnAuto = true;
         automaticHoldTimestamp = millis();
     }
-    if (topic.compareTo(downMqttTopic) == 0)
+    if(payload == "CLOSE")
     {
         GoDown();
         isOnAuto = true;
         automaticHoldTimestamp = millis();
+    }
+    if(payload == "STOP")
+    {
+        Stop();
     }
 }
 
