@@ -8,6 +8,8 @@ ShutterSwitch::ShutterSwitch(int *buttonPins,
                              String mqttTopic) : Switch(buttonPins, 2, outputPins, 2)
 {
     this->mqttTopic = mqttTopic;
+    this->stateTopic = mqttTopic + "/state";
+    this->commandTopic = mqttTopic + "/set";
     this->autoCloseDurationMiliseconds = autoCloseDurationMiliseconds;
 }
 
@@ -18,7 +20,7 @@ void ShutterSwitch::Initialize(SaveSystem *saveSystem, MQTTSystem *mqttSystem)
 
 void ShutterSwitch::ReceivedMessege(String &topic, String &payload)
 {
-    if (topic.compareTo(mqttTopic) != 0)
+    if (topic.compareTo(commandTopic) != 0)
     {
         return;
     }
@@ -89,6 +91,7 @@ void ShutterSwitch::Update()
 
 void ShutterSwitch::GoUp()
 {
+    mqttSystem->SetValue(stateTopic, "opening");
     isOnAuto = false;
     digitalWrite(outputPins[1], true);
     digitalWrite(outputPins[0], false);
@@ -96,6 +99,7 @@ void ShutterSwitch::GoUp()
 
 void ShutterSwitch::GoDown()
 {
+    mqttSystem->SetValue(stateTopic, "closing");
     isOnAuto = false;
     digitalWrite(outputPins[0], true);
     digitalWrite(outputPins[1], false);
@@ -117,6 +121,15 @@ void ShutterSwitch::ReleaseButton()
 
 void ShutterSwitch::Stop()
 {
+    if (outputPins[0])
+    {
+        mqttSystem->SetValue(stateTopic, "closed");
+    }
+    else if(outputPins[1])
+    {
+        mqttSystem->SetValue(stateTopic, "opened");
+    }
+    
     isOnAuto = false;
     automaticHoldTimestamp = millis();
     digitalWrite(outputPins[0], true); // true means its off
