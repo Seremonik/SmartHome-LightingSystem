@@ -121,15 +121,7 @@ void ShutterSwitch::ReleaseButton()
 
 void ShutterSwitch::Stop()
 {
-    if (outputPins[0])
-    {
-        mqttSystem->SetValue(stateTopic, "closed");
-    }
-    else if(outputPins[1])
-    {
-        mqttSystem->SetValue(stateTopic, "opened");
-    }
-    
+    mqttSystem->SetValue(stateTopic, "stopped");
     isOnAuto = false;
     automaticHoldTimestamp = millis();
     digitalWrite(outputPins[0], true); // true means its off
