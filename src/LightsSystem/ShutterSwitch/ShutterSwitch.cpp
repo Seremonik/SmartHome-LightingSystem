@@ -80,13 +80,13 @@ void ShutterSwitch::Update()
         }
     }
     //if was going automatic for X second then stop
-    if (isOnAuto)
-    {
-        if (isButtonUpPressed || isButtonDownPressed || TimePast(automaticHoldTimestamp, autoCloseDurationMiliseconds))
-        {
-            Stop();
-        }
-    }
+    // if (isOnAuto)
+    // {
+    //     if (isButtonUpPressed || isButtonDownPressed || TimePast(automaticHoldTimestamp, autoCloseDurationMiliseconds))
+    //     {
+    //         //Stop();
+    //     }
+    // }
 }
 
 void ShutterSwitch::GoUp()
